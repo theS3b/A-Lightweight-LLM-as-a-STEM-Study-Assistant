@@ -1,0 +1,44 @@
+{
+  "Base Model": {
+    "accuracy": 0.4434250764525994,
+    "avg_time_s": 0.15475660297097818,
+    "avg_peak_vram_MB": 2402.797074095311,
+    "score_acc_over_vram": 0.18454537057381576
+  },
+  "SFT Model": {
+    "accuracy": 0.46839959225280325,
+    "avg_time_s": 0.15560237327201348,
+    "avg_peak_vram_MB": 2402.797074095311,
+    "score_acc_over_vram": 0.194939305238318
+  },
+  "BnB 4-bit Model": {
+    "accuracy": 0.4327217125382263,
+    "avg_time_s": 0.2355947062015015,
+    "avg_peak_vram_MB": 601.8229724133537,
+    "score_acc_over_vram": 0.7190182701118584
+  },
+  "BnB 8-bit Model": {
+    "accuracy": 0.47298674821610603,
+    "avg_time_s": 0.4897772777239601,
+    "avg_peak_vram_MB": 1152.2320615124872,
+    "score_acc_over_vram": 0.4104960832240998
+  },
+  "GPTQ 4bit calib20": {
+    "accuracy": 0.445973496432212,
+    "avg_time_s": 0.2370421999216243,
+    "avg_peak_vram_MB": 584.8698474133537,
+    "score_acc_over_vram": 0.762517504372255
+  },
+  "GPTQ 4bit calib200": {
+    "accuracy": 0.4383282364933741,
+    "avg_time_s": 0.23997509375852547,
+    "avg_peak_vram_MB": 584.8698474133537,
+    "score_acc_over_vram": 0.7494457757258735
+  },
+  "GPTQ 4bit calib2000": {
+    "accuracy": 0.4490316004077472,
+    "avg_time_s": 0.2436061227504519,
+    "avg_peak_vram_MB": 584.8698474133537,
+    "score_acc_over_vram": 0.7677461958308076
+  }
+}
