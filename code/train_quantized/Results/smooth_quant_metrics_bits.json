@@ -1,0 +1,9 @@
+{
+  "SmoothQuant W4A8 calib200": {
+    "accuracy": 0.43730886850152906,
+    "avg_time_s": 2.731031197332682,
+    "tokens_per_s": 152.78177133293215,
+    "avg_peak_vram_MB": 2661.8089001079097,
+    "score_acc_over_vram": 0.16429010680811856
+  }
+}
