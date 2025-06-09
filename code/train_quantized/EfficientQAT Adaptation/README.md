@@ -4,12 +4,12 @@ This folder contains our modifications to EfficientQAT and scripts to train, eva
 
 ## Adaptations
 
-- We found a viable configuration for the environment that works with Qwen-3 models and is compatible with the triton version of EfficientQAT. It is defined in `env.yml`.
-- We modified efficientqat_to_others.py to support conversion to TORCH formats. We also did small changes as the code used an older version of the `gptqmodel` library. Lastly, we had to add code to manually add the quantization configuration to the `config.json` of the converted model as the original code does not handle this via parameters of the `from_quantized` method in the newer version of GPTQModel.
+- We found a viable configuration for the environment that works with Qwen-3 models and is compatible with the original triton version of EfficientQAT. It is defined in `env.yml`.
+- We modified [efficientqat_to_others.py](EfficientQAT/model_transfer/efficientqat_to_others.py) to support conversion to TORCH formats. We also did small changes as the code used an older version of the `gptqmodel` library. Lastly, we had to add code to manually add the quantization configuration to the `config.json` of the converted model as the original code does not handle this via parameters of the `from_quantized` method in the newer version of GPTQModel.
 
-- We modified datautils_blocks.py to handle the new data format used in EfficientQAT. We decided to cut the input sequence randomly, but before the label token. We could experiment with other strategies like cutting at the label token.
+- We modified [datautils_block.py](EfficientQAT/datautils_block.py) to handle the new data format used in EfficientQAT. We decided to cut the input sequence randomly, but before the label token. We could experiment with other strategies like cutting at the label token.
 
-- In main_e2e_qp.py, we changed from using Seq2SeqTrainer to Trainer. We also added a call to our custom `evaluation_utils.py` to evaluate the model after training.
+- In [main_e2e_qp.py](EfficientQAT/main_e2e_qp.py), we changed from using Seq2SeqTrainer to Trainer. We also added a call to our custom [evaluation_utils.py](EfficientQAT/evaluation_utils.py) to evaluate the model after training.
 
 ## Environment setup on Izar
 
