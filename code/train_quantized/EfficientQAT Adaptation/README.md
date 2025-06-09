@@ -4,19 +4,17 @@ This folder contains our modifications to EfficientQAT and scripts to train, eva
 
 ## Adaptations
 
-- We found a viable configuration for the environment that works with Qwen-3 models and is compatible with the original triton version of EfficientQAT. It is defined in `env.yml`.
-- We modified [efficientqat_to_others.py](EfficientQAT/model_transfer/efficientqat_to_others.py) to support conversion to TORCH formats. We also did small changes as the code used an older version of the `gptqmodel` library. Lastly, we had to add code to manually add the quantization configuration to the `config.json` of the converted model as the original code does not handle this via parameters of the `from_quantized` method in the newer version of GPTQModel.
-
-- We modified [datautils_block.py](EfficientQAT/datautils_block.py) to handle the new data format used in EfficientQAT. We decided to cut the input sequence randomly, but before the label token. We could experiment with other strategies like cutting at the label token.
-
-- In [main_e2e_qp.py](EfficientQAT/main_e2e_qp.py), we changed from using Seq2SeqTrainer to Trainer. We also added a call to our custom [evaluation_utils.py](EfficientQAT/evaluation_utils.py) to evaluate the model after training.
+* **env.yml** defines a compatible conda environment for Qwen-3 and Triton-based `gptqmodel`.
+* **model\_transfer/efficientqat\_to\_others.py** supports conversion to Torch/GPTQ formats, patches new `gptqmodel` APIs, and injects quantization settings into the model's `config.json`.
+* **datautils\_block.py** cuts input sequences randomly (before the label token) to fit block-wise QAT.
+* **main\_e2e\_qp.py** uses `Trainer` (instead of `Seq2SeqTrainer`) and hooks in `evaluation_utils.py` for validation during training.
 
 ## Environment setup on Izar
 
-Install Anaconda (if needed) and create the `freshEffQAT` environment:
+Install Anaconda and create the `freshEffQAT` environment:
 
 ```bash
-# Install Anaconda
+# Install Anaconda (if needed)
 curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh
 bash Anaconda3-2024.10-1-Linux-x86_64.sh
 
@@ -24,35 +22,90 @@ bash Anaconda3-2024.10-1-Linux-x86_64.sh
 conda env create -f env.yml
 conda activate freshEffQAT
 
-# Install gptqmodel with Triton support
+# Install Triton-enabled GPTQModel
 pip install -v gptqmodel[triton] --no-build-isolation
 ```
 
 ## Training with EfficientQAT
 
-Please refer to the following slurm scripts for training QAT models on Qwen-3:
-- [run_full_ap4.run](run_full_ap4.run): Block-AP & E2E-QP training for Qwen-3 4-bit model.
-- [run_full_ap2.run](run_full_ap2.run): Block-AP & E2E-QP training for Qwen-3 2-bit model.
+Use the provided Slurm scripts:
 
-Then you can run the following scripts to convert the QAT checkpoints to GPTQ format (do it on GPU as well, this part is very fast though):
-- [EfficientQAT/examples/model_transfer/efficientqat_to_gptq/Qwen3-w2g64.sh](EfficientQAT/examples/model_transfer/efficientqat_to_gptq/Qwen3-w2g64.sh)
-- [EfficientQAT/examples/model_transfer/efficientqat_to_gptq/Qwen3-w4g64.sh](EfficientQAT/examples/model_transfer/efficientqat_to_gptq/Qwen3-w4g64.sh)
+* **run\_full\_ap4.run** — Block-AP & E2E-QP for 4-bit Qwen-3
+* **run\_full\_ap2.run** — Block-AP & E2E-QP for 2-bit Qwen-3
 
-Finally, you can push the converted models to the Hugging Face Hub using the following notebook:
-- [push_to_hub.ipynb](push_to_hub.ipynb)
+Convert QAT checkpoints to GPTQ (GPU required, fast):
 
-### 1. Block‐wise Approximate Pretraining (Block-AP)
+```bash
+bash EfficientQAT/examples/model_transfer/efficientqat_to_gptq/Qwen3-w4g64.sh
+bash EfficientQAT/examples/model_transfer/efficientqat_to_gptq/Qwen3-w2g64.sh
+```
 
-Train each transformer block independently: see [examples/block_ap/w4g64.sh](EfficientQAT/examples/block_ap/Qwen3/w4g64.sh) for an example script.
+Push converted models with \[push\_to\_hub.ipynb].
 
-### 2. End-to-End Quantization Parameter Tuning (E2E-QP)
+### 1. Block‐AP
 
-Refine quantization parameters jointly: see [examples/e2e_qp/w4g64.sh](EfficientQAT/examples/e2e_qp/Qwen3/w4g64.sh) for an example script.
+See `examples/block_ap/Qwen3/w4g64.sh`.
 
-### 3. Converting QAT Checkpoints to GPTQ Format
+### 2. E2E-QP
 
-Once you have a QAT checkpoint, convert it for GPTQ inference: see [examples/model_transfer/efficientqat_to_gptq/convert.sh](EfficientQAT%20Adaptation/EfficientQAT/examples/model_transfer/efficientqat_to_gptq/Qwen3-w4g64.sh) for an example script.
+See `examples/e2e_qp/Qwen3/w4g64.sh`.
 
+### 3. GPTQ Conversion
+
+See `model_transfer/efficientqat_to_others.py` and `examples/model_transfer/efficientqat_to_gptq/*.sh`.
+
+## How to evaluate with Light-Eval (from EPFL)
+
+Follow these steps to run your Qwen3 QAT model under the lighteval framework:
+
+1. **Patch the code**
+
+   ```diff
+   --- transformers_model.py.orig
+   +++ transformers_model.py
+   @@ -50,7 +50,6 @@
+   - from optimum.quanto import QuantizedModelForCausalLM  # remove this
+   +
+   @@ -564,6 +564,9 @@
+        if self.load_in_optimum:
+   +        from optimum.quanto import QuantizedModelForCausalLM  # add back here
+   +        model = QuantizedModelForCausalLM.from_pretrained(
+        
+   @@ -246,7 +247,7 @@
+            if model_auto_quantization_config["quant_method"] == "gptq":
+   -            # if not is_autogptq_available():
+   -            #     raise ImportError(NO_AUTOGPTQ_ERROR_MSG)
+   +            # commented out legacy GPTQ check
+             auto_config.quantization_config["use_exllama"] = None
+             self.quantization_config = GPTQConfig(
+                 **auto_config.quantization_config,
+   ```
+
+2. **Create & activate environment**
+
+   ```bash
+   my_venvs_create lighteval_gptq
+   my_venvs_activate lighteval_gptq
+   pip install --upgrade accelerate optimum transformers
+   pip install gptqmodel[triton] --no-build-isolation
+   # ignore any resolver warnings
+
+   cd lighteval-epfl-mnlp/
+   pip install -e .   # do NOT add [quantization]
+   ```
+
+3. **Configure your model**
+
+   ```yaml
+   # quantized_model.yaml
+   model:
+     base_params:
+       model_args: "pretrained=TheS3b/Qwen3-EfficientQAT-w4g64,revision=main,trust_remote_code=True"
+       use_chat_template: false
+       dtype: "auto"
+       load_in_optimum: false
+       compile: false
+   ```
 
 ## Folder structure
 
