@@ -7,9 +7,9 @@
 #SBATCH --time 12:00:00                                     # maximum time limit is 12h. We need to rerun the jobs every 12 hours.
 #SBATCH --output=./logs/slurm-%j.out
 
-cd $HOME/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT
+cd $HOME/mnlp/project-m3-2025-tpu-burners/code/train_quantized/EfficientQAT\ Adaptation/EfficientQAT
 echo $PWD
 
 source $HOME/anaconda3/etc/profile.d/conda.sh
-conda activate efficientQAT
+conda activate freshEffQAT
 bash examples/block_ap/Qwen3/w2g64.sh
