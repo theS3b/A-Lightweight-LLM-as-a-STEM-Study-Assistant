@@ -162,16 +162,14 @@ def get_mnlp_randomsampling(tokenizer, train_size, val_size, seed, seqlen, test_
     data = data.filter(lambda x: x['relevance1'] > 0.2 or x['relevance2'] > 0.2)
     print("Done filtering")
 
-    # ---------- make a train/val partition ---------------------------------
     random.seed(seed)
     n = len(data)
-    val_frac = 0.05                          # 5 % validation
+    val_frac = 0.05
     idxs = list(range(n))
     random.shuffle(idxs)
     split_at = int(n * val_frac)
     val_idxs, train_idxs = idxs[:split_at], idxs[split_at:]
 
-    # ---------- helper for one (inp, tar) pair ------------------------------
     def _sample(id_pool):
         while True:
             ex = data[random.choice(id_pool)]
@@ -183,17 +181,15 @@ def get_mnlp_randomsampling(tokenizer, train_size, val_size, seed, seqlen, test_
         start = random.randint(0, enc.input_ids.shape[1] - seqlen - 1)
         inp = enc.input_ids[:, start : start + seqlen]
         tar = inp.clone()
-        tar[:, :-1] = -100                   # keep only the last token for loss
+        tar[:, :-1] = -100
         return inp, tar
 
 
-    # ---------- test-only fast path -----------------------------------------
     if test_only:
-        # build a wide tensor of `val_size` *seqlen* tokens for evaluation
+        # build a wide tensor for evaluation
         slices = [ _sample(val_idxs)[0] for _ in range(val_size) ]
         return torch.hstack(slices)
 
-    # ---------- normal train/val loaders -----------------------------------
     print(f"Sampling {train_size} train and {val_size} val examples...")
     trainloader = [_sample(train_idxs) for _ in range(train_size)]
     valloader   = [_sample(val_idxs)   for _ in range(val_size)]
