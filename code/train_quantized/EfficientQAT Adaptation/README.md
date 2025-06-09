@@ -62,7 +62,7 @@ Once you have a QAT checkpoint, convert it for GPTQ inference: see [examples/mod
 ├── logs/                    # training and eval logs
 │   ├── block_ap/
 │   └── e2e_qp/
-├── EfficientQAT/            # adapted QAT code
+├── EfficientQAT/            # QAT code
 │   ├── main_block_ap.py
 │   ├── main_e2e_qp.py
 │   ├── evaluation_utils.py
