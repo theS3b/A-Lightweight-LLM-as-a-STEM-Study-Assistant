@@ -129,3 +129,6 @@ Follow these steps to run your Qwen3 QAT model under the lighteval framework:
     └── model_transfer/
         └── run_model_transfer.sh
 ```
+
+## Acknowledgements
+This work builds upon the EfficientQAT framework and integrates it with the Qwen-3 model. We thank the original authors for their contributions and the community for ongoing support. 
