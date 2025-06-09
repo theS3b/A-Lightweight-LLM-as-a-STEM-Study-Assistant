@@ -20,6 +20,10 @@ This directory contains Jupyter notebooks and scripts to train, evaluate, and pu
   - Load 4-bit (`w4g64`) and 2-bit (`w2g64`) pretrained QAT checkpoints (`TheS3b/Qwen3-EfficientQAT-…`).
   - Evaluate on test split with `evaluate_mmlu()` and record metrics to `Results/QAT-metrics.json`.
 
+- **QAT Training**  
+  The EfficientQAT adaptation is documented in [EfficientQAT Adaptation/README.md](EfficientQAT%20Adaptation/README.md).
+  It includes details on how to train QAT models, including the training script and configuration.
+
 ## Requirements
 
 ### Quantization Full Evaluation.ipynb & QAT Evaluation.ipynb
@@ -64,7 +68,6 @@ pip install llmcompressor
 └── Results/
     ├── quantization_metrics.json
     └── QAT-metrics.json
-├── EfficientQAT Adaptation.zip  # Contains the whole directory, for your convenience to export (e.g. to izar).
 └── EfficientQAT Adaptation/
     └── README.md  # Contains all details about EfficientQAT adaptation
 ```
