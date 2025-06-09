@@ -1,0 +1,426 @@
+/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT
+['main_block_ap.py', '--model', 'brygotti/MNLP_M2_mcqa_model', '--output_dir', '/scratch/izar/delsad/mnlp_cache/EfficientQAT/block_ap_log/Qwen3-w3g64', '--wbits', '2', '--calib_dataset', 'get_mnlp_randomsampling', '--cache_dir', '/scratch/izar/delsad/mnlp_cache/EfficientQAT/cache', '--group_size', '64', '--quant_lr', '1e-4', '--weight_lr', '2e-5', '--training_seqlen', '128', '--real_quant', '--eval_ppl', '--eval_tasks', 'arc_easy,medmcqa', '--save_quant_dir', '/scratch/izar/delsad/mnlp_cache/EfficientQAT/block_ap_models/Qwen3-w3g64']
+[2025-06-07 23:51:45 root](main_block_ap.py 114): INFO Namespace(model='brygotti/MNLP_M2_mcqa_model', cache_dir='/scratch/izar/delsad/mnlp_cache/EfficientQAT/cache', output_dir='/scratch/izar/delsad/mnlp_cache/EfficientQAT/block_ap_log/Qwen3-w3g64', save_quant_dir='/scratch/izar/delsad/mnlp_cache/EfficientQAT/block_ap_models/Qwen3-w3g64', real_quant=True, resume_quant=None, calib_dataset='get_mnlp_randomsampling', train_size=4096, val_size=64, training_seqlen=128, batch_size=2, epochs=2, ppl_seqlen=2048, seed=2, eval_ppl=True, eval_tasks='arc_easy,medmcqa', eval_batch_size=16, wbits=2, group_size=64, quant_lr=0.0001, weight_lr=2e-05, min_lr_factor=20, clip_grad=0.3, wd=0, net=None, max_memory='70GiB', early_stop=0, off_load_to_disk=False)
+[2025-06-07 23:51:45 root](main_block_ap.py 118): INFO net is None, setting as MNLP_M2_mcqa_model
+[2025-06-07 23:51:56 root](main_block_ap.py 133): INFO === start quantization ===
+[2025-06-07 23:51:56 root](main_block_ap.py 140): INFO load trainloader from /scratch/izar/delsad/mnlp_cache/EfficientQAT/cache/dataloader_MNLP_M2_mcqa_model_get_mnlp_randomsampling_4096_64_128_train.cache
+[2025-06-07 23:51:56 root](main_block_ap.py 142): INFO load valloader from /scratch/izar/delsad/mnlp_cache/EfficientQAT/cache/dataloader_MNLP_M2_mcqa_model_get_mnlp_randomsampling_4096_64_128_val.cache
+[2025-06-07 23:51:56 root](block_ap.py 41): INFO Starting ...
+-- Step 1 --
+Moving rotary embedding to device
+-- Step 2 --
+-- Step 3.1: Catching inputs of training set --
+-- Step 3.2: Catching inputs of validation set --
+[2025-06-07 23:51:59 root](block_ap.py 131): INFO No attention mask caught from the first layer. Seems that model's attention works without a mask.
+-- Step 4: Move embedding layer and first layer to CPU --
+-- Step 5: Copy fp input as the quant input --
+-- Step 6: Start training (28 blocks) --
+[2025-06-07 23:51:59 root](block_ap.py 171): INFO === Start quantize blocks 0===
+trainable parameter number: 16.222464M
+[2025-06-07 23:52:25 root](block_ap.py 273): INFO blocks 0 epoch 0 recon_loss:0.004299760330468416 val_loss:0.004362117033451796 quant_lr:5.246359588146619e-05 norm:0.01164989 max memory_allocated 487.76953125 time 22.85814070701599 
+[2025-06-07 23:52:48 root](block_ap.py 273): INFO blocks 0 epoch 1 recon_loss:0.0036658605094999075 val_loss:0.003789370646700263 quant_lr:5e-06 norm:0.00800225 max memory_allocated 488.76953125 time 22.468011617660522 
+[2025-06-07 23:52:51 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-07 23:52:51 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-07 23:52:51 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-07 23:52:51 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-07 23:52:52 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-07 23:52:52 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-07 23:52:52 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-07 23:52:52 root](block_ap.py 171): INFO === Start quantize blocks 1===
+trainable parameter number: 16.222464M
+[2025-06-07 23:53:18 root](block_ap.py 273): INFO blocks 1 epoch 0 recon_loss:0.007064408622682095 val_loss:0.007221638225018978 quant_lr:5.246359588146619e-05 norm:0.01577622 max memory_allocated 488.76953125 time 22.51240634918213 
+[2025-06-07 23:53:40 root](block_ap.py 273): INFO blocks 1 epoch 1 recon_loss:0.0064630527049303055 val_loss:0.006726405583322048 quant_lr:5e-06 norm:0.01083906 max memory_allocated 488.76953125 time 22.5248806476593 
+[2025-06-07 23:53:44 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-07 23:53:44 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-07 23:53:44 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-07 23:53:44 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-07 23:53:44 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-07 23:53:44 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-07 23:53:44 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-07 23:53:44 root](block_ap.py 171): INFO === Start quantize blocks 2===
+trainable parameter number: 16.222464M
+[2025-06-07 23:54:10 root](block_ap.py 273): INFO blocks 2 epoch 0 recon_loss:0.15206317603588104 val_loss:0.12494015693664551 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.537733554840088 
+[2025-06-07 23:54:33 root](block_ap.py 273): INFO blocks 2 epoch 1 recon_loss:0.09858285635709763 val_loss:0.1139363944530487 quant_lr:5e-06 norm:8.96993160 max memory_allocated 488.76953125 time 22.58009171485901 
+[2025-06-07 23:54:36 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-07 23:54:36 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-07 23:54:36 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-07 23:54:36 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-07 23:54:36 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-07 23:54:37 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-07 23:54:37 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-07 23:54:37 root](block_ap.py 171): INFO === Start quantize blocks 3===
+trainable parameter number: 16.222464M
+[2025-06-07 23:55:03 root](block_ap.py 273): INFO blocks 3 epoch 0 recon_loss:0.10329488664865494 val_loss:0.12285065650939941 quant_lr:5.246359588146619e-05 norm:0.05161043 max memory_allocated 488.76953125 time 22.4748432636261 
+[2025-06-07 23:55:25 root](block_ap.py 273): INFO blocks 3 epoch 1 recon_loss:0.10096044093370438 val_loss:0.12091004848480225 quant_lr:5e-06 norm:0.04177983 max memory_allocated 488.76953125 time 22.511184692382812 
+[2025-06-07 23:55:28 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-07 23:55:28 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-07 23:55:29 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-07 23:55:29 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-07 23:55:29 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-07 23:55:29 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-07 23:55:29 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-07 23:55:29 root](block_ap.py 171): INFO === Start quantize blocks 4===
+trainable parameter number: 16.222464M
+[2025-06-07 23:55:55 root](block_ap.py 273): INFO blocks 4 epoch 0 recon_loss:0.10713246464729309 val_loss:0.12712377309799194 quant_lr:5.246359588146619e-05 norm:0.05785773 max memory_allocated 488.76953125 time 22.488979816436768 
+[2025-06-07 23:56:17 root](block_ap.py 273): INFO blocks 4 epoch 1 recon_loss:0.10523443669080734 val_loss:0.12514106929302216 quant_lr:5e-06 norm:0.04712258 max memory_allocated 488.76953125 time 22.513919830322266 
+[2025-06-07 23:56:21 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-07 23:56:21 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-07 23:56:21 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-07 23:56:21 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-07 23:56:21 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-07 23:56:21 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-07 23:56:21 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-07 23:56:21 root](block_ap.py 171): INFO === Start quantize blocks 5===
+trainable parameter number: 16.222464M
+[2025-06-07 23:56:47 root](block_ap.py 273): INFO blocks 5 epoch 0 recon_loss:0.12056352943181992 val_loss:0.14083367586135864 quant_lr:5.246359588146619e-05 norm:0.06708368 max memory_allocated 488.76953125 time 22.538683891296387 
+[2025-06-07 23:57:10 root](block_ap.py 273): INFO blocks 5 epoch 1 recon_loss:0.11803705245256424 val_loss:0.1388317197561264 quant_lr:5e-06 norm:0.05429500 max memory_allocated 488.76953125 time 22.566234827041626 
+[2025-06-07 23:57:13 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-07 23:57:13 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-07 23:57:13 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-07 23:57:14 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-07 23:57:14 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-07 23:57:14 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-07 23:57:14 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-07 23:57:14 root](block_ap.py 171): INFO === Start quantize blocks 6===
+trainable parameter number: 16.222464M
+[2025-06-07 23:57:40 root](block_ap.py 273): INFO blocks 6 epoch 0 recon_loss:0.1338931769132614 val_loss:0.15492835640907288 quant_lr:5.246359588146619e-05 norm:0.08508641 max memory_allocated 488.76953125 time 22.534532070159912 
+[2025-06-07 23:58:02 root](block_ap.py 273): INFO blocks 6 epoch 1 recon_loss:0.13113683462142944 val_loss:0.15279436111450195 quant_lr:5e-06 norm:0.06865489 max memory_allocated 488.76953125 time 22.56035828590393 
+[2025-06-07 23:58:06 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-07 23:58:06 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-07 23:58:06 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-07 23:58:06 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-07 23:58:06 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-07 23:58:06 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-07 23:58:06 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-07 23:58:06 root](block_ap.py 171): INFO === Start quantize blocks 7===
+trainable parameter number: 16.222464M
+[2025-06-07 23:58:32 root](block_ap.py 273): INFO blocks 7 epoch 0 recon_loss:0.1484377682209015 val_loss:0.16959929466247559 quant_lr:5.246359588146619e-05 norm:0.13995519 max memory_allocated 488.76953125 time 22.48545265197754 
+[2025-06-07 23:58:55 root](block_ap.py 273): INFO blocks 7 epoch 1 recon_loss:0.14492709934711456 val_loss:0.16699573397636414 quant_lr:5e-06 norm:0.11765250 max memory_allocated 488.76953125 time 22.51619863510132 
+[2025-06-07 23:58:58 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-07 23:58:58 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-07 23:58:58 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-07 23:58:58 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-07 23:58:58 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-07 23:58:59 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-07 23:58:59 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-07 23:58:59 root](block_ap.py 171): INFO === Start quantize blocks 8===
+trainable parameter number: 16.222464M
+[2025-06-07 23:59:25 root](block_ap.py 273): INFO blocks 8 epoch 0 recon_loss:0.16530585289001465 val_loss:0.18696165084838867 quant_lr:5.246359588146619e-05 norm:0.11345552 max memory_allocated 488.76953125 time 22.54295015335083 
+[2025-06-07 23:59:47 root](block_ap.py 273): INFO blocks 8 epoch 1 recon_loss:0.1617065966129303 val_loss:0.18434295058250427 quant_lr:5e-06 norm:0.09150064 max memory_allocated 488.76953125 time 22.57086706161499 
+[2025-06-07 23:59:51 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-07 23:59:51 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-07 23:59:51 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-07 23:59:51 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-07 23:59:51 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-07 23:59:51 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-07 23:59:51 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-07 23:59:51 root](block_ap.py 171): INFO === Start quantize blocks 9===
+trainable parameter number: 16.222464M
+[2025-06-08 00:00:17 root](block_ap.py 273): INFO blocks 9 epoch 0 recon_loss:0.18925867974758148 val_loss:0.21199023723602295 quant_lr:5.246359588146619e-05 norm:0.19974710 max memory_allocated 488.76953125 time 22.560832738876343 
+[2025-06-08 00:00:40 root](block_ap.py 273): INFO blocks 9 epoch 1 recon_loss:0.18443512916564941 val_loss:0.20852763950824738 quant_lr:5e-06 norm:0.15617998 max memory_allocated 488.76953125 time 22.62703800201416 
+[2025-06-08 00:00:43 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:00:43 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:00:43 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:00:43 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:00:44 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:00:44 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:00:44 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:00:44 root](block_ap.py 171): INFO === Start quantize blocks 10===
+trainable parameter number: 16.222464M
+[2025-06-08 00:01:10 root](block_ap.py 273): INFO blocks 10 epoch 0 recon_loss:0.2316356599330902 val_loss:0.2568150758743286 quant_lr:5.246359588146619e-05 norm:0.22730960 max memory_allocated 488.76953125 time 22.69163155555725 
+[2025-06-08 00:01:32 root](block_ap.py 273): INFO blocks 10 epoch 1 recon_loss:0.22554782032966614 val_loss:0.25230664014816284 quant_lr:5e-06 norm:0.18318035 max memory_allocated 488.76953125 time 22.56849217414856 
+[2025-06-08 00:01:36 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:01:36 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:01:36 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:01:36 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:01:36 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:01:36 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:01:36 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:01:36 root](block_ap.py 171): INFO === Start quantize blocks 11===
+trainable parameter number: 16.222464M
+[2025-06-08 00:02:02 root](block_ap.py 273): INFO blocks 11 epoch 0 recon_loss:0.287518709897995 val_loss:0.3148621916770935 quant_lr:5.246359588146619e-05 norm:0.30072647 max memory_allocated 488.76953125 time 22.554582357406616 
+[2025-06-08 00:02:25 root](block_ap.py 273): INFO blocks 11 epoch 1 recon_loss:0.2798919379711151 val_loss:0.3094262182712555 quant_lr:5e-06 norm:0.22969718 max memory_allocated 488.76953125 time 22.58829116821289 
+[2025-06-08 00:02:28 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:02:28 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:02:28 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:02:29 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:02:29 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:02:29 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:02:29 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:02:29 root](block_ap.py 171): INFO === Start quantize blocks 12===
+trainable parameter number: 16.222464M
+[2025-06-08 00:02:55 root](block_ap.py 273): INFO blocks 12 epoch 0 recon_loss:0.3119848668575287 val_loss:0.3419158160686493 quant_lr:5.246359588146619e-05 norm:0.23839812 max memory_allocated 488.76953125 time 22.52417755126953 
+[2025-06-08 00:03:17 root](block_ap.py 273): INFO blocks 12 epoch 1 recon_loss:0.3056400716304779 val_loss:0.3368645906448364 quant_lr:5e-06 norm:0.19863494 max memory_allocated 488.76953125 time 22.561819076538086 
+[2025-06-08 00:03:21 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:03:21 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:03:21 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:03:21 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:03:21 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:03:21 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:03:21 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:03:21 root](block_ap.py 171): INFO === Start quantize blocks 13===
+trainable parameter number: 16.222464M
+[2025-06-08 00:03:47 root](block_ap.py 273): INFO blocks 13 epoch 0 recon_loss:0.35486268997192383 val_loss:0.38788700103759766 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.545410871505737 
+[2025-06-08 00:04:10 root](block_ap.py 273): INFO blocks 13 epoch 1 recon_loss:0.3479622006416321 val_loss:0.3825884461402893 quant_lr:5e-06 norm:0.23016270 max memory_allocated 488.76953125 time 22.5701687335968 
+[2025-06-08 00:04:13 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:04:13 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:04:13 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:04:14 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:04:14 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:04:14 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:04:14 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:04:14 root](block_ap.py 171): INFO === Start quantize blocks 14===
+trainable parameter number: 16.222464M
+[2025-06-08 00:04:40 root](block_ap.py 273): INFO blocks 14 epoch 0 recon_loss:0.37357550859451294 val_loss:0.40782785415649414 quant_lr:5.246359588146619e-05 norm:0.30966580 max memory_allocated 488.76953125 time 22.524491786956787 
+[2025-06-08 00:05:02 root](block_ap.py 273): INFO blocks 14 epoch 1 recon_loss:0.3655998706817627 val_loss:0.40216052532196045 quant_lr:5e-06 norm:0.24781421 max memory_allocated 488.76953125 time 22.540319442749023 
+[2025-06-08 00:05:06 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:05:06 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:05:06 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:05:06 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:05:06 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:05:06 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:05:06 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:05:06 root](block_ap.py 171): INFO === Start quantize blocks 15===
+trainable parameter number: 16.222464M
+[2025-06-08 00:05:32 root](block_ap.py 273): INFO blocks 15 epoch 0 recon_loss:0.46250858902931213 val_loss:0.5009858012199402 quant_lr:5.246359588146619e-05 norm:0.46575552 max memory_allocated 488.76953125 time 22.556574821472168 
+[2025-06-08 00:05:55 root](block_ap.py 273): INFO blocks 15 epoch 1 recon_loss:0.45167461037635803 val_loss:0.4933547377586365 quant_lr:5e-06 norm:0.38819125 max memory_allocated 488.76953125 time 22.56682801246643 
+[2025-06-08 00:05:58 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:05:58 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:05:58 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:05:59 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:05:59 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:05:59 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:05:59 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:05:59 root](block_ap.py 171): INFO === Start quantize blocks 16===
+trainable parameter number: 16.222464M
+[2025-06-08 00:06:25 root](block_ap.py 273): INFO blocks 16 epoch 0 recon_loss:0.6999413371086121 val_loss:0.7523804903030396 quant_lr:5.246359588146619e-05 norm:0.80313593 max memory_allocated 488.76953125 time 22.53002405166626 
+[2025-06-08 00:06:47 root](block_ap.py 273): INFO blocks 16 epoch 1 recon_loss:0.6803895831108093 val_loss:0.7377057075500488 quant_lr:5e-06 norm:0.66749263 max memory_allocated 488.76953125 time 22.56676197052002 
+[2025-06-08 00:06:51 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:06:51 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:06:51 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:06:51 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:06:51 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:06:51 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:06:51 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:06:51 root](block_ap.py 171): INFO === Start quantize blocks 17===
+trainable parameter number: 16.222464M
+[2025-06-08 00:07:17 root](block_ap.py 273): INFO blocks 17 epoch 0 recon_loss:1.0484098196029663 val_loss:1.123104453086853 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.592166900634766 
+[2025-06-08 00:07:40 root](block_ap.py 273): INFO blocks 17 epoch 1 recon_loss:1.014754295349121 val_loss:1.0976593494415283 quant_lr:5e-06 norm:1.21629322 max memory_allocated 488.76953125 time 22.60870599746704 
+[2025-06-08 00:07:43 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:07:43 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:07:43 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:07:44 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:07:44 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:07:44 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:07:44 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:07:44 root](block_ap.py 171): INFO === Start quantize blocks 18===
+trainable parameter number: 16.222464M
+[2025-06-08 00:08:10 root](block_ap.py 273): INFO blocks 18 epoch 0 recon_loss:1.5468049049377441 val_loss:1.6532872915267944 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.590747833251953 
+[2025-06-08 00:08:33 root](block_ap.py 273): INFO blocks 18 epoch 1 recon_loss:1.4978238344192505 val_loss:1.6178562641143799 quant_lr:5e-06 norm:1.75179589 max memory_allocated 488.76953125 time 22.640228033065796 
+[2025-06-08 00:08:36 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:08:36 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:08:36 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:08:36 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:08:36 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:08:36 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:08:37 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:08:37 root](block_ap.py 171): INFO === Start quantize blocks 19===
+trainable parameter number: 16.222464M
+[2025-06-08 00:09:03 root](block_ap.py 273): INFO blocks 19 epoch 0 recon_loss:2.3937807083129883 val_loss:2.5652577877044678 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.577162504196167 
+[2025-06-08 00:09:25 root](block_ap.py 273): INFO blocks 19 epoch 1 recon_loss:2.3156301975250244 val_loss:2.510242223739624 quant_lr:5e-06 norm:2.39791226 max memory_allocated 488.76953125 time 22.608253002166748 
+[2025-06-08 00:09:29 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:09:29 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:09:29 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:09:29 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:09:29 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:09:29 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:09:29 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:09:29 root](block_ap.py 171): INFO === Start quantize blocks 20===
+trainable parameter number: 16.222464M
+[2025-06-08 00:09:55 root](block_ap.py 273): INFO blocks 20 epoch 0 recon_loss:3.8386659622192383 val_loss:4.117588520050049 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.55593466758728 
+[2025-06-08 00:10:18 root](block_ap.py 273): INFO blocks 20 epoch 1 recon_loss:3.7144076824188232 val_loss:4.0322265625 quant_lr:5e-06 norm:4.55261421 max memory_allocated 488.76953125 time 22.608965635299683 
+[2025-06-08 00:10:21 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:10:21 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:10:21 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:10:22 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:10:22 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:10:22 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:10:22 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:10:22 root](block_ap.py 171): INFO === Start quantize blocks 21===
+trainable parameter number: 16.222464M
+[2025-06-08 00:10:48 root](block_ap.py 273): INFO blocks 21 epoch 0 recon_loss:5.83081579208374 val_loss:6.302202224731445 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.536956310272217 
+[2025-06-08 00:11:10 root](block_ap.py 273): INFO blocks 21 epoch 1 recon_loss:5.652956485748291 val_loss:6.182336807250977 quant_lr:5e-06 norm:5.74027205 max memory_allocated 488.76953125 time 22.57530641555786 
+[2025-06-08 00:11:14 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:11:14 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:11:14 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:11:14 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:11:14 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:11:14 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:11:15 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:11:15 root](block_ap.py 171): INFO === Start quantize blocks 22===
+trainable parameter number: 16.222464M
+[2025-06-08 00:11:40 root](block_ap.py 273): INFO blocks 22 epoch 0 recon_loss:8.60630989074707 val_loss:9.315595626831055 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.515220403671265 
+[2025-06-08 00:12:03 root](block_ap.py 273): INFO blocks 22 epoch 1 recon_loss:8.35693645477295 val_loss:9.150980949401855 quant_lr:5e-06 norm:nan max memory_allocated 488.76953125 time 22.56740427017212 
+[2025-06-08 00:12:06 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:12:06 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:12:06 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:12:07 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:12:07 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:12:07 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:12:07 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:12:07 root](block_ap.py 171): INFO === Start quantize blocks 23===
+trainable parameter number: 16.222464M
+[2025-06-08 00:12:33 root](block_ap.py 273): INFO blocks 23 epoch 0 recon_loss:12.128402709960938 val_loss:13.159171104431152 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.553733825683594 
+[2025-06-08 00:12:55 root](block_ap.py 273): INFO blocks 23 epoch 1 recon_loss:11.826739311218262 val_loss:12.95374870300293 quant_lr:5e-06 norm:nan max memory_allocated 488.76953125 time 22.604511260986328 
+[2025-06-08 00:12:59 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:12:59 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:12:59 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:12:59 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:12:59 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:12:59 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:13:00 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:13:00 root](block_ap.py 171): INFO === Start quantize blocks 24===
+trainable parameter number: 16.222464M
+[2025-06-08 00:13:25 root](block_ap.py 273): INFO blocks 24 epoch 0 recon_loss:16.77045440673828 val_loss:17.974628448486328 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.579174041748047 
+[2025-06-08 00:13:48 root](block_ap.py 273): INFO blocks 24 epoch 1 recon_loss:16.37993812561035 val_loss:17.719009399414062 quant_lr:5e-06 norm:11.25984383 max memory_allocated 488.76953125 time 22.621063470840454 
+[2025-06-08 00:13:51 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:13:51 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:13:52 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:13:52 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:13:52 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:13:52 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:13:52 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:13:52 root](block_ap.py 171): INFO === Start quantize blocks 25===
+trainable parameter number: 16.222464M
+[2025-06-08 00:14:18 root](block_ap.py 273): INFO blocks 25 epoch 0 recon_loss:22.72745132446289 val_loss:24.280080795288086 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.51968550682068 
+[2025-06-08 00:14:41 root](block_ap.py 273): INFO blocks 25 epoch 1 recon_loss:22.2204647064209 val_loss:23.917240142822266 quant_lr:5e-06 norm:nan max memory_allocated 488.76953125 time 22.562814712524414 
+[2025-06-08 00:14:44 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:14:44 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:14:44 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:14:44 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:14:44 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:14:44 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:14:45 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:14:45 root](block_ap.py 171): INFO === Start quantize blocks 26===
+trainable parameter number: 16.222464M
+[2025-06-08 00:15:10 root](block_ap.py 273): INFO blocks 26 epoch 0 recon_loss:27.929004669189453 val_loss:29.596004486083984 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.614519357681274 
+[2025-06-08 00:15:33 root](block_ap.py 273): INFO blocks 26 epoch 1 recon_loss:27.233325958251953 val_loss:29.138919830322266 quant_lr:5e-06 norm:nan max memory_allocated 488.76953125 time 22.663508653640747 
+[2025-06-08 00:15:37 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:15:37 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:15:37 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:15:37 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:15:37 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:15:37 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:15:37 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:15:37 root](block_ap.py 171): INFO === Start quantize blocks 27===
+trainable parameter number: 16.222464M
+[2025-06-08 00:16:03 root](block_ap.py 273): INFO blocks 27 epoch 0 recon_loss:39.900604248046875 val_loss:42.27946472167969 quant_lr:5.246359588146619e-05 norm:nan max memory_allocated 488.76953125 time 22.58662986755371 
+[2025-06-08 00:16:26 root](block_ap.py 273): INFO blocks 27 epoch 1 recon_loss:38.83749771118164 val_loss:41.566932678222656 quant_lr:5e-06 norm:nan max memory_allocated 488.76953125 time 22.64002251625061 
+[2025-06-08 00:16:29 root](block_ap.py 307): INFO pack quantized self_attn.q_proj finished
+[2025-06-08 00:16:29 root](block_ap.py 307): INFO pack quantized self_attn.k_proj finished
+[2025-06-08 00:16:29 root](block_ap.py 307): INFO pack quantized self_attn.v_proj finished
+[2025-06-08 00:16:29 root](block_ap.py 307): INFO pack quantized self_attn.o_proj finished
+[2025-06-08 00:16:29 root](block_ap.py 307): INFO pack quantized mlp.gate_proj finished
+[2025-06-08 00:16:30 root](block_ap.py 307): INFO pack quantized mlp.up_proj finished
+[2025-06-08 00:16:30 root](block_ap.py 307): INFO pack quantized mlp.down_proj finished
+[2025-06-08 00:16:30 root](main_block_ap.py 163): INFO 1473.959182024002
+[2025-06-08 00:16:30 root](main_block_ap.py 166): INFO start saving model
+[2025-06-08 00:16:32 root](main_block_ap.py 169): INFO save model success
+get_wikitext2
+Generating test split:   0%|          | 0/4358 [00:00<?, ? examples/s]Generating test split:  23%|██▎       | 1000/4358 [00:00<00:02, 1280.31 examples/s]Generating test split: 100%|██████████| 4358/4358 [00:00<00:00, 5486.28 examples/s]
+Generating train split:   0%|          | 0/36718 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 36718/36718 [00:00<00:00, 1019120.64 examples/s]
+Generating validation split:   0%|          | 0/3760 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 3760/3760 [00:00<00:00, 675833.86 examples/s]
+Token indices sequence length is longer than the specified maximum sequence length for this model (299078 > 131072). Running this sequence through the model will result in indexing errors
+  0%|          | 0/146 [00:00<?, ?it/s]  1%|          | 1/146 [00:04<11:37,  4.81s/it]  2%|▏         | 3/146 [00:04<03:08,  1.32s/it]  3%|▎         | 5/146 [00:05<01:37,  1.45it/s]  5%|▍         | 7/146 [00:05<01:00,  2.28it/s]  6%|▌         | 9/146 [00:05<00:42,  3.24it/s]  8%|▊         | 11/146 [00:05<00:31,  4.26it/s]  9%|▉         | 13/146 [00:05<00:25,  5.31it/s] 10%|█         | 15/146 [00:06<00:20,  6.31it/s] 12%|█▏        | 17/146 [00:06<00:17,  7.20it/s] 13%|█▎        | 19/146 [00:06<00:15,  7.97it/s] 14%|█▍        | 21/146 [00:06<00:14,  8.59it/s] 16%|█▌        | 23/146 [00:06<00:13,  9.08it/s] 17%|█▋        | 25/146 [00:07<00:12,  9.45it/s] 18%|█▊        | 27/146 [00:07<00:12,  9.73it/s] 20%|█▉        | 29/146 [00:07<00:11,  9.93it/s] 21%|██        | 31/146 [00:07<00:11, 10.07it/s] 23%|██▎       | 33/146 [00:07<00:11, 10.17it/s] 24%|██▍       | 35/146 [00:08<00:10, 10.24it/s] 25%|██▌       | 37/146 [00:08<00:10, 10.30it/s] 27%|██▋       | 39/146 [00:08<00:10, 10.34it/s] 28%|██▊       | 41/146 [00:08<00:10, 10.37it/s] 29%|██▉       | 43/146 [00:08<00:09, 10.39it/s] 31%|███       | 45/146 [00:09<00:09, 10.40it/s] 32%|███▏      | 47/146 [00:09<00:09, 10.41it/s] 34%|███▎      | 49/146 [00:09<00:09, 10.42it/s] 35%|███▍      | 51/146 [00:09<00:09, 10.42it/s] 36%|███▋      | 53/146 [00:09<00:08, 10.42it/s] 38%|███▊      | 55/146 [00:09<00:08, 10.42it/s] 39%|███▉      | 57/146 [00:10<00:08, 10.43it/s] 40%|████      | 59/146 [00:10<00:08, 10.43it/s] 42%|████▏     | 61/146 [00:10<00:08, 10.43it/s] 43%|████▎     | 63/146 [00:10<00:07, 10.43it/s] 45%|████▍     | 65/146 [00:10<00:07, 10.43it/s] 46%|████▌     | 67/146 [00:11<00:07, 10.42it/s] 47%|████▋     | 69/146 [00:11<00:07, 10.42it/s] 49%|████▊     | 71/146 [00:11<00:07, 10.42it/s] 50%|█████     | 73/146 [00:11<00:07, 10.42it/s] 51%|█████▏    | 75/146 [00:11<00:06, 10.42it/s] 53%|█████▎    | 77/146 [00:12<00:06, 10.42it/s] 54%|█████▍    | 79/146 [00:12<00:06, 10.42it/s] 55%|█████▌    | 81/146 [00:12<00:06, 10.42it/s] 57%|█████▋    | 83/146 [00:12<00:06, 10.42it/s] 58%|█████▊    | 85/146 [00:12<00:05, 10.42it/s] 60%|█████▉    | 87/146 [00:13<00:05, 10.42it/s] 61%|██████    | 89/146 [00:13<00:05, 10.42it/s] 62%|██████▏   | 91/146 [00:13<00:05, 10.42it/s] 64%|██████▎   | 93/146 [00:13<00:05, 10.42it/s] 65%|██████▌   | 95/146 [00:13<00:04, 10.42it/s] 66%|██████▋   | 97/146 [00:14<00:04, 10.42it/s] 68%|██████▊   | 99/146 [00:14<00:04, 10.43it/s] 69%|██████▉   | 101/146 [00:14<00:04, 10.43it/s] 71%|███████   | 103/146 [00:14<00:04, 10.43it/s] 72%|███████▏  | 105/146 [00:14<00:03, 10.41it/s] 73%|███████▎  | 107/146 [00:14<00:03, 10.41it/s] 75%|███████▍  | 109/146 [00:15<00:03, 10.41it/s] 76%|███████▌  | 111/146 [00:15<00:03, 10.42it/s] 77%|███████▋  | 113/146 [00:15<00:03, 10.42it/s] 79%|███████▉  | 115/146 [00:15<00:02, 10.42it/s] 80%|████████  | 117/146 [00:15<00:02, 10.42it/s] 82%|████████▏ | 119/146 [00:16<00:02, 10.43it/s] 83%|████████▎ | 121/146 [00:16<00:02, 10.43it/s] 84%|████████▍ | 123/146 [00:16<00:02, 10.43it/s] 86%|████████▌ | 125/146 [00:16<00:02, 10.43it/s] 87%|████████▋ | 127/146 [00:16<00:01, 10.43it/s] 88%|████████▊ | 129/146 [00:17<00:01, 10.43it/s] 90%|████████▉ | 131/146 [00:17<00:01, 10.42it/s] 91%|█████████ | 133/146 [00:17<00:01, 10.42it/s] 92%|█████████▏| 135/146 [00:17<00:01, 10.42it/s] 94%|█████████▍| 137/146 [00:17<00:00, 10.42it/s] 95%|█████████▌| 139/146 [00:18<00:00, 10.42it/s] 97%|█████████▋| 141/146 [00:18<00:00, 10.42it/s] 98%|█████████▊| 143/146 [00:18<00:00, 10.42it/s] 99%|█████████▉| 145/146 [00:18<00:00, 10.43it/s]100%|██████████| 146/146 [00:18<00:00,  7.80it/s]
+wikitext2:50.96260070800781
+get_c4
+Traceback (most recent call last):
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/datautils_block.py", line 49, in get_c4
+    traindata = load_dataset("arrow",
+                ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/load.py", line 2062, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/load.py", line 1782, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+                     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/load.py", line 1497, in dataset_module_factory
+    ).get_module()
+      ^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/load.py", line 913, in get_module
+    data_files = DataFilesDict.from_patterns(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/data_files.py", line 689, in from_patterns
+    else DataFilesList.from_patterns(
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/data_files.py", line 582, in from_patterns
+    resolve_pattern(
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/data_files.py", line 383, in resolve_pattern
+    raise FileNotFoundError(error_msg)
+FileNotFoundError: Unable to find '/cpfs01/user/chenmengzhao/huggingface/datasets/allenai___json/allenai--c4-6fbe877195f42de5/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51/json-train-00000-of-00002.arrow'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/main_block_ap.py", line 176, in <module>
+    main()
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/main_block_ap.py", line 170, in main
+    evaluate(model, tokenizer, args,logger)
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/main_block_ap.py", line 37, in evaluate
+    ppl_results = test_ppl(model, tokenizer, datasets, args.ppl_seqlen)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 115, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/datautils_block.py", line 224, in test_ppl
+    testloader = get_loaders(
+                 ^^^^^^^^^^^^
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/datautils_block.py", line 210, in get_loaders
+    return get_c4(tokenizer,train_size,val_size,seed,seqlen,test_only)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/datautils_block.py", line 61, in get_c4
+    traindata = load_dataset(
+                ^^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/load.py", line 2062, in load_dataset
+    builder_instance = load_dataset_builder(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/load.py", line 1819, in load_dataset_builder
+    builder_instance: DatasetBuilder = builder_cls(
+                                       ^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/builder.py", line 343, in __init__
+    self.config, self.config_id = self._create_builder_config(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/datasets/builder.py", line 570, in _create_builder_config
+    raise ValueError(
+ValueError: BuilderConfig 'allenai--c4' not found. Available: ['en', 'en.noblocklist', 'en.noclean', 'realnewslike', 'multilingual', 'af', 'am', 'ar', 'az', 'be', 'bg', 'bg-Latn', 'bn', 'ca', 'ceb', 'co', 'cs', 'cy', 'da', 'de', 'el', 'el-Latn', 'en-multi', 'eo', 'es', 'et', 'eu', 'fa', 'fi', 'fil', 'fr', 'fy', 'ga', 'gd', 'gl', 'gu', 'ha', 'haw', 'hi', 'hi-Latn', 'hmn', 'ht', 'hu', 'hy', 'id', 'ig', 'is', 'it', 'iw', 'ja', 'ja-Latn', 'jv', 'ka', 'kk', 'km', 'kn', 'ko', 'ku', 'ky', 'la', 'lb', 'lo', 'lt', 'lv', 'mg', 'mi', 'mk', 'ml', 'mn', 'mr', 'ms', 'mt', 'my', 'ne', 'nl', 'no', 'ny', 'pa', 'pl', 'ps', 'pt', 'ro', 'ru', 'ru-Latn', 'sd', 'si', 'sk', 'sl', 'sm', 'sn', 'so', 'sq', 'sr', 'st', 'su', 'sv', 'sw', 'ta', 'te', 'tg', 'th', 'tr', 'uk', 'und', 'ur', 'uz', 'vi', 'xh', 'yi', 'yo', 'zh', 'zh-Latn', 'zu']
+[2025-06-08 00:17:28 root](main_e2e_qp.py 404): INFO Namespace(quant_model_path='/scratch/izar/delsad/mnlp_cache/EfficientQAT/block_ap_models/Qwen3-w3g64', model_family='llama-2', trust_remote_code=False, use_auth_token=False, eval_dataset_size=16, max_train_samples=None, max_eval_samples=None, source_max_len=384, target_max_len=128, dataset='mnlp', eval_tasks='', conv_temp='llama-2', mask_use=True, dataset_format='mnlp', overwrite_cache=False, preprocessing_num_workers=32, output_dir='/scratch/izar/delsad/mnlp_cache/EfficientQAT/e2e-qp-output/Qwen3-w3g64', overwrite_output_dir=False, do_train=True, do_eval=False, do_predict=False, eval_strategy=<IntervalStrategy.NO: 'no'>, prediction_loss_only=False, per_device_train_batch_size=16, per_device_eval_batch_size=4, per_gpu_train_batch_size=None, per_gpu_eval_batch_size=None, gradient_accumulation_steps=1, eval_accumulation_steps=None, eval_delay=0, torch_empty_cache_steps=None, learning_rate=1e-05, weight_decay=0.0, adam_beta1=0.9, adam_beta2=0.999, adam_epsilon=1e-08, max_grad_norm=0.3, num_train_epochs=3.0, max_steps=1000, lr_scheduler_type=<SchedulerType.COSINE: 'cosine'>, lr_scheduler_kwargs={}, warmup_ratio=0.03, warmup_steps=0, log_level='passive', log_level_replica='warning', log_on_each_node=True, logging_dir='/scratch/izar/delsad/mnlp_cache/EfficientQAT/e2e-qp-output/Qwen3-w3g64/runs/Jun08_00-17-28_i04', logging_strategy=<IntervalStrategy.STEPS: 'steps'>, logging_first_step=False, logging_steps=10, logging_nan_inf_filter=True, save_strategy=<SaveStrategy.STEPS: 'steps'>, save_steps=250, save_total_limit=5, save_safetensors=True, save_on_each_node=False, save_only_model=False, restore_callback_states_from_checkpoint=False, no_cuda=False, use_cpu=False, use_mps_device=False, seed=42, data_seed=42, jit_mode_eval=False, use_ipex=False, bf16=False, fp16=False, fp16_opt_level='O1', half_precision_backend='auto', bf16_full_eval=False, fp16_full_eval=False, tf32=None, local_rank=0, ddp_backend=None, tpu_num_cores=None, tpu_metrics_debug=False, debug=[], dataloader_drop_last=False, eval_steps=2000.0, dataloader_num_workers=0, dataloader_prefetch_factor=None, past_index=-1, run_name='/scratch/izar/delsad/mnlp_cache/EfficientQAT/e2e-qp-output/Qwen3-w3g64', disable_tqdm=False, remove_unused_columns=False, label_names=None, load_best_model_at_end=False, metric_for_best_model=None, greater_is_better=None, ignore_data_skip=False, fsdp=[], fsdp_min_num_params=0, fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_v2': False, 'xla_fsdp_grad_ckpt': False}, tp_size=0, fsdp_transformer_layer_cls_to_wrap=None, accelerator_config=AcceleratorConfig(split_batches=False, dispatch_batches=None, even_batches=True, use_seedable_sampler=True, non_blocking=False, gradient_accumulation_kwargs=None, use_configured_state=False), deepspeed=None, label_smoothing_factor=0.0, optim=<OptimizerNames.PAGED_ADAMW: 'paged_adamw_32bit'>, optim_args=None, adafactor=False, group_by_length=True, length_column_name='length', report_to=[], ddp_find_unused_parameters=None, ddp_bucket_cap_mb=None, ddp_broadcast_buffers=None, dataloader_pin_memory=True, dataloader_persistent_workers=False, skip_memory_metrics=True, use_legacy_prediction_loop=False, push_to_hub=False, resume_from_checkpoint=None, hub_model_id=None, hub_strategy=<HubStrategy.EVERY_SAVE: 'every_save'>, hub_token=None, hub_private_repo=None, hub_always_push=False, gradient_checkpointing=True, gradient_checkpointing_kwargs=None, include_inputs_for_metrics=False, include_for_metrics=[], eval_do_concat_batches=True, fp16_backend='auto', push_to_hub_model_id=None, push_to_hub_organization=None, push_to_hub_token=None, mp_parameters='', auto_find_batch_size=False, full_determinism=False, torchdynamo=None, ray_scope='last', ddp_timeout=1800, torch_compile=False, torch_compile_backend=None, torch_compile_mode=None, include_tokens_per_second=False, include_num_input_tokens_seen=False, neftune_noise_alpha=None, optim_target_modules=None, batch_eval_metrics=False, eval_on_start=False, use_liger_kernel=False, eval_use_gather_object=False, average_tokens_across_devices=False, sortish_sampler=False, predict_with_generate=False, generation_max_length=None, generation_num_beams=None, generation_config=GenerationConfig {
+  "max_new_tokens": 256
+}
+, cache_dir=None, run_custom_test=True, train_on_source=False, do_mmlu_eval=False, do_ppl_eval=False, pt_context_len=1024, full_finetune=False, wbits=3, group_size=64, max_memory_MB=80000, distributed_state=Distributed environment: DistributedType.NO
+Num processes: 1
+Process index: 0
+Local process index: 0
+Device: cuda
+, _n_gpu=1, __cached__setup_devices=device(type='cuda', index=0), deepspeed_plugin=None)
+Loading quantized model from /scratch/izar/delsad/mnlp_cache/EfficientQAT/block_ap_models/Qwen3-w3g64
+  0%|          | 0/28 [00:00<?, ?it/s]100%|██████████| 28/28 [00:00<00:00, 447.36it/s]
+Loading pre-computed quantized weights...
+Traceback (most recent call last):
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/main_e2e_qp.py", line 567, in <module>
+    train()
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/main_e2e_qp.py", line 410, in train
+    model, tokenizer = get_accelerate_model(args, checkpoint_dir)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/main_e2e_qp.py", line 255, in get_accelerate_model
+    model, tokenizer = load_quantized_model(args.quant_model_path,args.wbits, args.group_size)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/delsad/mnlp/Qwen-Dataset-Creation/Quantization/EfficientQAT/quantize/int_linear_real.py", line 195, in load_quantized_model
+    load_checkpoint_in_model(model,checkpoint=model_path,device_map=device_map,offload_state_dict=True)
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/accelerate/utils/modeling.py", line 2015, in load_checkpoint_in_model
+    set_module_tensor_to_device(
+  File "/home/delsad/anaconda3/envs/efficientQAT/lib/python3.11/site-packages/accelerate/utils/modeling.py", line 292, in set_module_tensor_to_device
+    raise ValueError(
+ValueError: Trying to set a tensor of shape torch.Size([192, 1024]) in "qweight" (which has shape torch.Size([308, 1024])), this looks incorrect.
