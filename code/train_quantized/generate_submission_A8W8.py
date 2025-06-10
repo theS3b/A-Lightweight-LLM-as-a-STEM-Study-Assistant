@@ -20,7 +20,7 @@ hub_prefix = "TheS3b/Qwen3-0.6B-SmoothQuant-W8A8-calib"  # base name for HF push
 model_repo = "brygotti/MNLP_M3_mcqa_model"
 BITS         = 8
 BLOCK_SIZE   = 64
-prompt_sizes = 200
+prompt_sizes = [200]
 MAX_SEQUENCE_LENGTH = 2048
 
 logging.disable(logging.INFO)
@@ -32,15 +32,7 @@ all_metrics = {}
 tokenizer = AutoTokenizer.from_pretrained(model_repo, trust_remote_code=True)
 
 # Re-use the calibration set you already filtered
-calibration_data = load_dataset("brygotti/MNLP_M3_mcqa_dataset")
-
-def is_valid_prompt(example, min_len=64, max_len=256, thresh=0.5):
-    tokens = tokenizer(example["prompt"], return_tensors="pt")["input_ids"]
-    return min_len <= tokens.shape[1] <= max_len and (example["relevance_nlp4educ"] + example["relevance_mmlu"]) * 0.5 > thresh
-
-filtered_calibration_set = calibration_data.filter(
-    lambda ex: is_valid_prompt(ex), batched=False
-).shuffle(seed=42)["train"]
+filtered_calibration_set = load_dataset("TheS3b/MNLP_M3_quantized_dataset")["train"]
 
 def tokenise(sample):
     return tokenizer(
