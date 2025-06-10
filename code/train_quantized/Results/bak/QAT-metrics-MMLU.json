@@ -1,0 +1,23 @@
+{
+  "QAT-W4G64-MMLU": {
+    "accuracy": 0.49772112234724397,
+    "avg_time_s": 0.15134374926770655,
+    "tokens_per_s": 3184.720006640905,
+    "avg_peak_vram_MB": 922.4070150736407,
+    "score_acc_over_vram": 0.5395894807971601
+  },
+  "QAT-W2G64-MMLU": {
+    "accuracy": 0.3771542515311209,
+    "avg_time_s": 0.2400643309300269,
+    "tokens_per_s": 2007.7429425090138,
+    "avg_peak_vram_MB": 495.8127767923907,
+    "score_acc_over_vram": 0.7606787666326011
+  },
+  "GPTQ-4bit-MMLU": {
+    "accuracy": 0.4802022503916821,
+    "avg_time_s": 0.14946990395861184,
+    "tokens_per_s": 3224.6455868893313,
+    "avg_peak_vram_MB": 714.3440267923907,
+    "score_acc_over_vram": 0.6722282715065565
+  }
+}
