@@ -2,7 +2,15 @@
 
 # PLEASE READ THE README, it explains way better everything than this script
 
-MODEL_TYPE="EfficientQAT"
+echo "This script is designed to train quantized models using EfficientQAT, BNB-GPTQ, or SmoothQuant methods."
+echo "It will install the necessary dependencies and set up the environment for training."
+echo ""
+echo "IT IS BETTER TO READ THE README.md FILE IN THE FOLDER train_quantized/ AND THE ONE IN train_quantized/EfficientQAT\ Adaptation/ FOR QAT, THIS SCRIPT IS JUST A CONVENIENCE."
+echo ""
+echo "Which quantization method do you want to train?"
+echo "Options: EfficientQAT | BNB-GPTQ | SmoothQuant"
+read -p "Enter your choice: " MODEL_TYPE
+MODEL_TYPE=$(echo "$MODEL_TYPE" | tr '[:upper:]' '[:lower:]')
 
 if [ "$MODEL_TYPE" == "EfficientQAT" ]; then
     echo "You are about to run the EfficientQAT Adaptation training script. Anaconda will be installed if not already present."
@@ -34,7 +42,7 @@ if [ "$MODEL_TYPE" == "EfficientQAT" ]; then
     echo ""
     echo "Do you want to evaluate the quantized models using lighteval?"
     echo "!!! Note: You MUST patch 'lighteval-epfl-mnlp' before evaluating. !!!"
-    echo "Detailed instructions are provided in EfficientQAT Adaptation/README.md."
+    echo "Detailed instructions are provided in ----> EfficientQAT Adaptation/README.md <-----."
     read -p "Proceed with evaluation? (yes/no) " eval_input
     eval_input=$(echo "$eval_input" | tr '[:upper:]' '[:lower:]')
 
