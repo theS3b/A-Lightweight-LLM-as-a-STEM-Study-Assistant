@@ -69,6 +69,8 @@ Follow these steps to run your Qwen3 QAT model under the lighteval framework:
    ### If the above really doesn't work
    First, try the above, if it really doesn't work, you can try the following:
    ```bash
+   my_venvs_create lighteval_gptq_hope
+   my_venvs_activate lighteval_gptq_hope
    pip install -r requirements.txt
    ```
 
