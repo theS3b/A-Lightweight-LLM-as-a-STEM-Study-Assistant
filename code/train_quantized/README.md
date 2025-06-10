@@ -24,8 +24,55 @@ This directory contains Jupyter notebooks and scripts to train, evaluate, and pu
   The EfficientQAT adaptation is documented in [EfficientQAT Adaptation/README.md](EfficientQAT%20Adaptation/README.md).
   It includes details on how to train QAT models, including the training script and configuration.
 
-## Requirements
+## How to evaluate GPTQModel (EfficientQAT & GPTQ) with Light-Eval (from EPFL)
 
+#### Please see EfficientQAT Adaptation/README.md for more details including how to train QAT models.
+
+Follow these steps to run your Qwen3 QAT model under the lighteval framework:
+
+1. **Patch lighteval**
+
+   ```diff
+   --- transformers_model.py.orig
+   +++ transformers_model.py
+   @@ -50,7 +50,6 @@
+   - from optimum.quanto import QuantizedModelForCausalLM  # remove this
+   +
+   @@ -564,6 +564,9 @@
+        if self.load_in_optimum:
+   +        from optimum.quanto import QuantizedModelForCausalLM  # add back here
+   +        model = QuantizedModelForCausalLM.from_pretrained(
+        
+   @@ -246,7 +247,7 @@
+            if model_auto_quantization_config["quant_method"] == "gptq":
+   -            # if not is_autogptq_available():
+   -            #     raise ImportError(NO_AUTOGPTQ_ERROR_MSG)
+   +            # commented out legacy GPTQ check
+             auto_config.quantization_config["use_exllama"] = None
+             self.quantization_config = GPTQConfig(
+                 **auto_config.quantization_config,
+   ```
+
+2. **Create & activate environment**
+
+   ```bash
+   my_venvs_create lighteval_gptq
+   my_venvs_activate lighteval_gptq
+   pip install --upgrade accelerate optimum transformers
+   pip install gptqmodel[triton] --no-build-isolation
+   # ignore any resolver warnings
+
+   cd lighteval-epfl-mnlp/
+   pip install -e .   # do NOT add [quantization]
+   ```
+
+   ### If the above really doesn't work
+   First, try the above, if it really doesn't work, you can try the following:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Other Requirements for Training all but QAT
 ### Quantization Full Evaluation.ipynb & QAT Evaluation.ipynb
 ```bash
 my_venvs_create sebm3_light_gptq

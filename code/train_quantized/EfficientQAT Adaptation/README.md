@@ -94,7 +94,13 @@ Follow these steps to run your Qwen3 QAT model under the lighteval framework:
    pip install -e .   # do NOT add [quantization]
    ```
 
-3. **Configure your model**
+   ### If it really doesn't work
+   First, try the above, if it really doesn't work, you can try the following:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Configure the model**
 
    ```yaml
    # quantized_model.yaml
