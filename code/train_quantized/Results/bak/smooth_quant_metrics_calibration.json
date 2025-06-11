@@ -1,0 +1,23 @@
+{
+  "SmoothQuant W8A8 calib20": {
+    "accuracy": 0.46788990825688076,
+    "avg_time_s": 0.7094695481021246,
+    "tokens_per_s": 588.1179608203909,
+    "avg_peak_vram_MB": 1207.3607828527172,
+    "score_acc_over_vram": 0.38753114636651026
+  },
+  "SmoothQuant W8A8 calib200": {
+    "accuracy": 0.4694189602446483,
+    "avg_time_s": 0.7106244803635806,
+    "tokens_per_s": 587.1621305256821,
+    "avg_peak_vram_MB": 2642.4916484494456,
+    "score_acc_over_vram": 0.17764255206637747
+  },
+  "SmoothQuant W8A8 calib2000": {
+    "accuracy": 0.46992864424057085,
+    "avg_time_s": 0.7120487397882203,
+    "tokens_per_s": 585.9876727231988,
+    "avg_peak_vram_MB": 2645.047311018731,
+    "score_acc_over_vram": 0.17766360634947564
+  }
+}

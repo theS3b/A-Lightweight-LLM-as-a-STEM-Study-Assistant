@@ -1,0 +1,13 @@
+pandas
+numpy
+transformers
+sentence-transformers
+datasets
+openai
+faiss-cpu
+scikit-learn
+tqdm
+torch
+langchain
+langchain-community
+huggingface_hub
