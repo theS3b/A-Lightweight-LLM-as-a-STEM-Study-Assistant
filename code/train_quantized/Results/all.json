@@ -41,6 +41,13 @@
     "avg_peak_vram_MB": 592.8273323517934,
     "score_acc_over_vram": 0.7393860110236331
   },
+  "GPTQ 4bit calib2000": {
+    "accuracy": 0.4390316004077472,
+    "avg_time_s": 0.2436884483561028,
+    "tokens_per_s": 1712.23456306084,
+    "avg_peak_vram_MB": 595.0481086443202,
+    "score_acc_over_vram": 0.7546139444603261
+  },
   "SmoothQuant W4A8 calib200": {
     "accuracy": 0.43119266055045874,
     "avg_time_s": 2.551433663254188,

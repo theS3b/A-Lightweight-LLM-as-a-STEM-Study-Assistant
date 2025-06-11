@@ -13,7 +13,7 @@ class Doc:
         self.gold_index = gold_index
 
 def mmlu_harness_hf(
-    ex, topic: str = "advanced master-level STEM courses"
+    ex, topic: str = "knowledge and skills in advanced master-level STEM courses"
 ) -> Doc:
     """
     Convert a raw example from the HF MMLU JSON into a Doc object
