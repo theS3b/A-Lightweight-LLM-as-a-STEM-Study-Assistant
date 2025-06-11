@@ -12,7 +12,7 @@ echo "Options: EfficientQAT | BNB-GPTQ | SmoothQuant"
 read -p "Enter your choice: " MODEL_TYPE
 MODEL_TYPE=$(echo "$MODEL_TYPE" | tr '[:upper:]' '[:lower:]')
 
-if [ "$MODEL_TYPE" == "EfficientQAT" ]; then
+if [ "$MODEL_TYPE" == "efficientqat" ]; then
     echo "You are about to run the EfficientQAT Adaptation training script. Anaconda will be installed if not already present."
     echo "We recommend you to run this script on Izar, as it is optimized for that environment."
     read -p "Do you want to continue? (yes/no) " user_input
@@ -68,7 +68,7 @@ if [ "$MODEL_TYPE" == "EfficientQAT" ]; then
     fi
 fi
 
-if [ "$MODEL_TYPE" == "BNB-GPTQ" ]; then
+if [ "$MODEL_TYPE" == "bnb-gptq" ]; then
     my_venvs_create sebm3_light_gptq
     my_venvs_activate sebm3_light_gptq
     pip install datasets transformers bitsandbytes accelerate torch tqdm optimum
@@ -77,7 +77,7 @@ if [ "$MODEL_TYPE" == "BNB-GPTQ" ]; then
     echo "Please run the notebook Quantization Full Evaluation.ipynb to evaluate the models."
 fi
 
-if [ "$MODEL_TYPE" == "SmoothQuant" ]; then
+if [ "$MODEL_TYPE" == "smoothquant" ]; then
     my_venvs_create sebm3_smooth_quant
     my_venvs_activate sebm3_smooth_quant
     pip install datasets transformers bitsandbytes accelerate torch tqdm optimum
