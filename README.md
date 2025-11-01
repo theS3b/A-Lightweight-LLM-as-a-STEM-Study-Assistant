@@ -1,89 +1,139 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/xR4NrJfU)
-# CS-552 - Final Submission
+# A Lightweight LLM as a STEM Study Assistant
 
-Welcome to the final submission for the MNLP project! For this last submission, as you can read in the [project description](https://docs.google.com/document/d/1BUeMoBb2zwg1YvO_OnLcqFiXQd8hxiF8ub-cM2MbX_M/edit?usp=sharing), you have 4 main goals:
+<font size=4><div align='center'>[[📄 Tech Report](pdf/A%20Lightweight%20LLM%20as%20a%20STEM%20Study%20Assistant.pdf)]</div></font>
 
-1. Finish training the four models detailed in the project description: DPO, MCQA, Quantized-MCQA, RAG-MCQA, optimizing their performance as well as you can, and submit them. (individual work, one model per member)
-2. Submit the code you used to train your models, including the training script for each model.
-3. Submit the training data used for each model.
-4. Write a final report (group work)
+### 📝 Abstract
 
-Note: Note that for this final submission, the models will be evaluated based on their performance.
+*We present a domain-adapted LLM for answering STEM multiple-choice questions. We explore fine-tuning Qwen3-0.6B-Base using SFT, Direct Preference Optimization (DPO), retrieval-augmented generation (RAG), quantization, and dataset filtering. Combining alignment, retrieval, and efficiency techniques, our approach improves MCQA accuracy while enabling resource-efficient deployment.*
 
-## Repo Structure
 
-The repo has 6 folders, 4 of which serve for you to submit all four deliverables:
+## 🛠️ Setup
 
-1. `_templates` contains the LaTeX template for your final report. You MUST use this template.
-2. `_test` contains scripts that run automated tests to validate that your submission is correctly formatted.
-3. `model_configs` should be populated by you with the 4 model config YAML files, including `dpo_model.yaml`, `mcqa_model.yaml`, `quantized_model.yaml`, and `rag_model.yaml`. Make sure you fill in the important information in each config file, and the information is exactly what is used for evaluating your models. You need to change `<HF_USERNAME_team_member_X>` to your Huggingface Hub username. Make sure that you have submitted your models to the correct Huggingface Hub repositories, adhering to the following name convention:
+### Prerequisites
 
-- `<HF_USERNAME_team_member_DPO>/MNLP_M3_dpo_model`
-- `<HF_USERNAME_team_member_MCQA>/MNLP_M3_mcqa_model`
-- `<HF_USERNAME_team_member_QUANTIZED>/MNLP_M3_quantized_model`
-- `<HF_USERNAME_team_member_RAG>/MNLP_M3_rag_model`
+Ensure you have the following installed:
+- Python 3.8 or higher
+- CUDA-compatible GPU (recommended for training)
+- Hugging Face account (for model and dataset access)
 
-    For the team member responsible for the RAG model, make sure you have submitted the two additional deliverables specific to RAG:
+### Installation
 
-- `<HF_USERNAME_team_member_RAG>/<RAG_DOCUMENT_REPO_NAME>`, replace `<RAG_DOCUMENT_REPO_NAME>` with the actual Huggingface Hub repo name of your submitted RAG documents.
-- `<HF_USERNAME_team_member_RAG>/MNLP_M3_document_encoder`
+1. Clone the repository:
+```bash
+git clone https://github.com/theS3b/A-Lightweight-LLM-as-a-STEM-Study-Assistant.git
+cd A-Lightweight-LLM-as-a-STEM-Study-Assistant
+```
 
-4. `pdf` should be filled by you with your final report PDF (titled `<YOUR-GROUP-NAME>.pdf`). This directory should then have only one PDF.
-5. `data` contains `data_repo.json`. In this file, you need to change `<HF_USERNAME_team_member_X>` to your Huggingface Hub username. Make sure that you have submitted the training data for your 4 models to the correct Huggingface Hub repositories, adhering to the following name convention:
+2. Install dependencies for each training module (navigate to the respective directories):
+```bash
+# DPO training
+cd code/train_dpo
+pip install -r requirements.txt
 
-- `<HF_USERNAME_team_member_DPO>/MNLP_M3_dpo_dataset`
-- `<HF_USERNAME_team_member_MCQA>/MNLP_M3_mcqa_dataset`
-- `<HF_USERNAME_team_member_QUANTIZED>/MNLP_M3_quantized_dataset`
-- `<HF_USERNAME_team_member_RAG>/MNLP_M3_rag_dataset`
+# MCQA training
+cd ../train_mcqa
+pip install -r requirements.txt
 
-6. The `code` must contain the following:
+# Quantized model training (see README in code/train_quantized, minimal installation as follows)
+cd ../train_quantized
+pip install -r requirements.txt
 
-- Four Bash Training Scripts:
-You must provide four executable Bash scripts (.sh files) in the root of the `code` directory. These scripts are essential for reproducing your results and obtaining models equivalent to those you submit.
+# RAG training
+cd ../train_rag
+pip install -r requirements.txt
+```
 
-    - `train_dpo.sh`
-    - `train_mcqa.sh`
-    - `train_quantized.sh`
-    - `train_rag.sh` 
 
-- Four Corresponding Subfolders for Training Code:
-For each of the four models, you should create a dedicated subfolder within code/ to house its specific training code. These folders should have the following structure:
+## 🚀 Training
 
-    - `train_dpo/`
-    - `train_mcqa/`
-    - `train_quantized/`
-    - `train_rag/ `
+We provide four training pipelines for different model configurations. Each can be run independently using the provided bash scripts.
 
-    By running these scripts we should be able to reproduce your training process and obtain models that are functionally equivalent to the ones you have developed and submitted.
+### 1. DPO Model Training
+Train a model using Direct Preference Optimization to align with educational preferences:
+```bash
+bash code/train_dpo.sh
+```
 
-## Running the tests manually
+Detailed implementation and preprocessing steps can be found in `code/train_dpo/`.
 
-The autograding tests run automatically with every commit to the repo. If you want to trigger them manually, follow the instructions from the previous milestone.
+### 2. MCQA Model Training
+Fine-tune a model for multiple-choice question answering tasks:
+```bash
+bash code/train_mcqa.sh
+```
 
-## Evaluation Suite
+Preprocessing notebooks for dataset generation and relevance analysis are available in `code/train_mcqa/preprocessing/`.
 
-For the final submission, same as M2, we provide you with an [evaluation suite](https://github.com/eric11eca/lighteval-epfl-mnlp) to benchmark each of the four models. As we covered in the compute tutorial session, details about how we evaluate your models are listed in these slides: [Evaluation Implementation Slides](https://docs.google.com/presentation/d/1SoVY4u6fDgXQ-F6TdarwaINhQ30NnE9Zb2XFavz3PGU/edit?usp=sharing).
+### 3. Quantized Model Training
+Train and quantize models for efficient deployment:
+```bash
+bash code/train_quantized.sh
+```
 
-We provide you with a demo MCQA evaluation dataset and a demo DPO evaluation dataset on the Huggingface Hub:
+This includes Quantization-Aware Training (QAT) and Smooth Quantization techniques. Evaluation notebooks and detailed results are in `code/train_quantized/`.
 
-- [MCQA demo dataset](https://huggingface.co/datasets/zechen-nlp/MNLP_STEM_mcqa_demo)
-- [DPO demo dataset](https://huggingface.co/datasets/zechen-nlp/MNLP_dpo_demo)
+### 4. RAG Model Training
+Train a model with Retrieval-Augmented Generation capabilities:
+```bash
+bash code/train_rag.sh
+```
 
-Also, for the RAG part, here is a demo Huggingface repo for the RAG documents and a collection of pretrained huggingface embedding models you can start with:
+Corpus creation and training notebooks are provided in `code/train_rag/`.
 
-- [RAG documents demo](https://huggingface.co/datasets/m-ric/huggingface_doc)
-- [RAG embedding model collection on Huggingface Hub](https://huggingface.co/models?library=sentence-transformers)
 
-## Submission Via Huggingface Hub
+## 📊 Evaluation
 
-Recall that you have to submit your model weights, RAG documents, and training data via [Huggingface Hub](https://huggingface.co/). Make sure you
+We provide comprehensive evaluation tools to benchmark model performance on STEM tasks. The evaluation suite assesses:
+- MCQA accuracy on MMLU and NLP4Education benchmarks
+- DPO preference alignment
+- Quantization impact on model quality
+- RAG retrieval precision and answer quality
 
-- Have a Huggingface account.
-- Make all your submissions public on the Huggingface Hub.
+Evaluation results and metrics can be found in `code/train_quantized/Results/`.
 
-Please take a look at the documents on how to [upload your dataset](https://huggingface.co/docs/datasets/en/upload_dataset) (documents which are also a dataset) and [upload your model weights](https://huggingface.co/docs/transformers/en/model_sharing#pushtohubmixin). Note that you also have to **push the tokenizers to the same model repository**.
 
-## Validating Your Submission
-**After you push your model weights and RAG documents to the correct Huggingface Hub repositories, make sure to test your models with the official [evaluation suite](https://github.com/eric11eca/lighteval-epfl-mnlp) in a fresh and clean environment (not the same environment you used for development).**
+## 📦 Model Checkpoints
 
-**If you got an error in the clean environment, you are responsible for debugging and correcting it.**
+All trained models are available on Hugging Face Hub:
+
+- **DPO Model**: [lindsaybordier/MNLP_M3_dpo_model](https://huggingface.co/lindsaybordier/MNLP_M3_dpo_model)
+- **MCQA Model**: [brygotti/MNLP_M3_mcqa_model](https://huggingface.co/brygotti/MNLP_M3_mcqa_model)
+- **Quantized Model**: [TheS3b/MNLP_M3_quantized_model](https://huggingface.co/TheS3b/MNLP_M3_quantized_model)
+- **RAG Model**: [Alexhuou/MNLP_M3_rag_model](https://huggingface.co/Alexhuou/MNLP_M3_rag_model)
+  - Document Encoder: [Alexhuou/MNLP_M3_document_encoder](https://huggingface.co/Alexhuou/MNLP_M3_document_encoder)
+  - RAG Documents: [Alexhuou/merged_rag_docs_final](https://huggingface.co/datasets/Alexhuou/merged_rag_docs_final)
+
+Model configurations are provided in the `model_configs/` directory. Training datasets are also available through the references in `data/data_repo.json`.
+
+
+## 📁 Repository Structure
+
+```
+├── code/                          # Training code and scripts
+│   ├── train_dpo/                # DPO training implementation
+│   ├── train_mcqa/               # MCQA training and preprocessing
+│   ├── train_quantized/          # Quantization experiments
+│   └── train_rag/                # RAG training and corpus creation
+├── model_configs/                # Model configuration files
+├── data/                         # Dataset references
+├── pdf/                          # Technical report
+└── _test/                        # Validation scripts
+```
+
+
+## 🤝 Acknowledgements
+
+This project was developed as part of the Modern Natural Language Processing (CS-552) course at EPFL. We acknowledge the instructors and TAs for their efforts in running the course. We also acknowledge the [lighteval-epfl-mnlp](https://github.com/eric11eca/lighteval-epfl-mnlp) evaluation suite, on which our customized benchmarking implementation is based. We also acknowledge the use of evaluation suite for model benchmarking.
+
+
+## 📄 Citation
+
+If you find this work useful, please cite our technical report:
+```bibtex
+@techreport{stem-study-assistant-2025,
+  title={A Lightweight LLM as a STEM Study Assistant},
+  author={Sébastien Delsad, Bryan Gotti, Lindsay Bordier, Alexandre Huou},
+  year={2025},
+  institution={EPFL}
+}
+```
